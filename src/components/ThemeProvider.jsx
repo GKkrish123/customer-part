@@ -1,5 +1,5 @@
 import React from 'react';
-import { MantineProvider, AppShell, Loader, Box, Group, Burger, Text, Avatar } from '@mantine/core';
+import { MantineProvider, AppShell, Loader, Box, Group, Burger, Text, Avatar, Flex } from '@mantine/core';
 import { useDisclosure, useLocalStorage } from '@mantine/hooks';
 import NavBar from './NavBar';
 import CustomLoader from './Loader';
@@ -65,13 +65,23 @@ const ThemeProvider = ({ children }) => {
                 }}
             >
                 <AppShell.Header>
-                    <Burger
-                        opened={opened}
-                        onClick={toggle}
-                        hiddenFrom="sm"
-                        size="sm"
-                    />
-                    <Avatar src="mantine.png" alt="it's me" />
+                    <Flex
+                        h="100%"
+                        px={"20px"}
+                        gap="sm"
+                        justify="flex-start"
+                        align="center"
+                        direction="row"
+                        wrap="wrap"
+                    >
+                        <Burger
+                            opened={opened}
+                            onClick={toggle}
+                            hiddenFrom="sm"
+                            size="sm"
+                        />
+                        <Avatar src="mantine.png" alt="it's me" />
+                    </Flex>
                 </AppShell.Header>
 
                 <AppShell.Navbar p="md">
