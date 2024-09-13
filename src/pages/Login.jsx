@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TextInput, PasswordInput, Button, Group, Box, Text, Paper, Title, Image } from '@mantine/core';
+import { TextInput, PasswordInput, Button, Group, Box, Text, Paper, Title, Image, Flex } from '@mantine/core';
 import { useAuth } from '../auth/authContext';
 import { useNavigate } from 'react-router-dom';
 
@@ -12,11 +12,11 @@ const Login = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    
+
     if (username && password) {
       // Simulate login, normally you'd validate against an API
       const isLoggedIn = login(username, password);
-      if (isLoggedIn) navigate('/');
+      if (isLoggedIn) navigate('/plants');
       else setError('Incorrect username or password!');
     } else {
       setError('Please fill in both fields.');
@@ -24,14 +24,17 @@ const Login = () => {
   };
 
   return (
-    <Box
-      sx={(theme) => ({
-        maxWidth: 400,
-        margin: 'auto',
-        paddingTop: theme.spacing.xl,
-      })}
+    <Flex
+      style={{
+        width: "100%",
+        height: "calc(100vh - 80px)",
+      }}
+      justify="center"
+      align="center"
     >
-      <Paper shadow="md" p="xl" radius="md">
+      <Paper shadow="md" p="xl" radius="md" style={{
+        width: "50%",
+      }}>
         {/* Logo */}
         <Group position="center" mb="xl">
           <Image src="mantine.png" alt="Logo" width={80} height={80} />
@@ -74,7 +77,7 @@ const Login = () => {
           </Group>
         </form>
       </Paper>
-    </Box>
+    </Flex>
   );
 };
 
