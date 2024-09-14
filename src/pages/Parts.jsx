@@ -54,7 +54,7 @@ const Parts = () => {
                     {navItems.map((item, index) => (
                         <NavLink
                             component="button"
-                            key={item}
+                            key={index}
                             label={item}
                             rightSection={<IconChevronRight size="1rem" stroke={1.5} />}
                             onClick={() => navigate("/spreadsheet")}

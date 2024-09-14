@@ -28,7 +28,7 @@ const Plants = () => {
             justify="center"
             gap="10px"
         >
-            {plantsList.map((plantProps) => <PlantCard  {...plantProps} onClickHandler={onPlantClicked} />)}
+            {plantsList.map((plantProps, index) => <PlantCard key={index} {...plantProps} onClickHandler={onPlantClicked} />)}
         </Flex>
     );
 };
