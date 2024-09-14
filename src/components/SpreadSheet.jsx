@@ -167,7 +167,7 @@ const SpreadSheet = () => {
 
     media.forEach((media) => {
       const { tl, br } = media;
-    
+
       const endRow = br?.row ?? (tl.row + 1);
       const endCol = br?.col ?? (tl.col + 1);
 
@@ -183,80 +183,80 @@ const SpreadSheet = () => {
   };
 
   const downloadAsBlob = async () => {
-  //   if (!hotInstance) return;
+    if (!hotInstance) return;
 
-  // const workbook = new ExcelJS.Workbook();
-  // const worksheet = workbook.addWorksheet('Sheet1');
+    const workbook = new ExcelJS.Workbook();
+    const worksheet = workbook.addWorksheet(sheetNames[0]);
 
-  // // Extract data from Handsontable
-  // const handsontableData = hotInstance.getData();
-  
-  // // Apply the data to the Excel worksheet
-  // handsontableData.forEach((row, rowIndex) => {
-  //   row.forEach((cell, colIndex) => {
-  //     worksheet.getCell(rowIndex + 1, colIndex + 1).value = cell;
-  //   });
-  // });
+    // Extract data from Handsontable
+    const handsontableData = hotInstance.getData();
 
-  // // Apply column widths
-  // const columnWidths = hotInstance.getSettings().colWidths || [];
-  // columnWidths.forEach((width, index) => {
-  //   worksheet.getColumn(index + 1).width = width / 5; // ExcelJS width is typically in characters
-  // });
+    // Apply the data to the Excel worksheet
+    handsontableData.forEach((row, rowIndex) => {
+      row.forEach((cell, colIndex) => {
+        worksheet.getCell(rowIndex + 1, colIndex + 1).value = cell;
+      });
+    });
 
-  // // Apply row heights
-  // const rowHeights = hotInstance.getSettings().rowHeights || [];
-  // rowHeights.forEach((height, index) => {
-  //   worksheet.getRow(index + 1).height = height;
-  // });
+    // Apply column widths
+    const columnWidths = hotInstance.getSettings().colWidths || [];
+    columnWidths.forEach((width, index) => {
+      worksheet.getColumn(index + 1).width = width / 5; // ExcelJS width is typically in characters
+    });
 
-  // // Apply merged cells
-  // mergeCells.forEach((merge) => {
-  //   worksheet.mergeCells(merge.row + 1, merge.col + 1, merge.row + merge.rowspan, merge.col + merge.colspan);
-  // });
+    // Apply row heights
+    const rowHeights = hotInstance.getSettings().rowHeights || [];
+    rowHeights.forEach((height, index) => {
+      worksheet.getRow(index + 1).height = height;
+    });
 
-  // // Apply cell styles (only basic styles for demo purposes)
-  // cellStyles.forEach((style) => {
-  //   const cell = worksheet.getCell(style.row + 1, style.col + 1);
-  //   if (style.backgroundColor) {
-  //     cell.fill = {
-  //       type: 'pattern',
-  //       pattern: 'solid',
-  //       fgColor: { argb: style.backgroundColor.replace('#', '') }
-  //     };
-  //   }
-  //   if (style.color) {
-  //     cell.font = {
-  //       color: { argb: style.color.replace('#', '') }
-  //     };
-  //   }
-  //   if (style.fontWeight) {
-  //     cell.font = { ...cell.font, bold: style.fontWeight === 'bold' };
-  //   }
-  //   if (style.fontStyle) {
-  //     cell.font = { ...cell.font, italic: style.fontStyle === 'italic' };
-  //   }
-  //   if (style.border) {
-  //     cell.border = {
-  //       top: { style: 'thin', color: { argb: 'FF000000' } },
-  //       left: { style: 'thin', color: { argb: 'FF000000' } },
-  //       bottom: { style: 'thin', color: { argb: 'FF000000' } },
-  //       right: { style: 'thin', color: { argb: 'FF000000' } }
-  //     };
-  //   }
-  // });
+    // Apply merged cells
+    mergeCells.forEach((merge) => {
+      worksheet.mergeCells(merge.row + 1, merge.col + 1, merge.row + merge.rowspan, merge.col + merge.colspan);
+    });
 
-  // // Handle media (images)
-  // // media.forEach((mediaItem) => {
-  // //   const { base64, type, tl, br, width, height, range, sheetId } = mediaItem;
-  // //   worksheet.addImage(0, range);
-  // // });
+    // Apply cell styles (only basic styles for demo purposes)
+    cellStyles.forEach((style) => {
+      const cell = worksheet.getCell(style.row + 1, style.col + 1);
+      if (style.backgroundColor) {
+        cell.fill = {
+          type: 'pattern',
+          pattern: 'solid',
+          fgColor: { argb: style.backgroundColor.replace('#', '') }
+        };
+      }
+      if (style.color) {
+        cell.font = {
+          color: { argb: style.color.replace('#', '') }
+        };
+      }
+      if (style.fontWeight) {
+        cell.font = { ...cell.font, bold: style.fontWeight === 'bold' };
+      }
+      if (style.fontStyle) {
+        cell.font = { ...cell.font, italic: style.fontStyle === 'italic' };
+      }
+      if (style.border) {
+        cell.border = {
+          top: { style: 'thin', color: { argb: 'FF000000' } },
+          left: { style: 'thin', color: { argb: 'FF000000' } },
+          bottom: { style: 'thin', color: { argb: 'FF000000' } },
+          right: { style: 'thin', color: { argb: 'FF000000' } }
+        };
+      }
+    });
 
-  // // Convert workbook to Blob and trigger download
-  // workbook.xlsx.writeBuffer().then((buffer) => {
-  //   const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-  //   saveAs(blob, 'handsontable-changes.xlsx');
-  // });
+    // Handle media (images)
+    // media.forEach((mediaItem) => {
+    //   const { base64, type, tl, br, width, height, range, sheetId } = mediaItem;
+    //   worksheet.addImage(0, range);
+    // });
+
+    // Convert workbook to Blob and trigger download
+    workbook.xlsx.writeBuffer().then((buffer) => {
+      const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      saveAs(blob, 'handsontable-changes.xlsx');
+    });
   }
 
   return (
