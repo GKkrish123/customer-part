@@ -130,6 +130,20 @@ const SpreadSheet = () => {
   };
 
   useEffect(() => {
+    const fetchDemoFile = async () => {
+      try {
+        const response = await fetch("/demo.xlsx");
+        const file = await response.blob();
+        await handleFileUpload(file);
+      } catch (error) {
+        console.error('Error loading demo file:', error);
+      }
+    };
+
+    fetchDemoFile();
+  }, []);
+
+  useEffect(() => {
     if (selectedSheet && sheets[selectedSheet]) {
       setData(sheets[selectedSheet]);
     }
@@ -260,8 +274,8 @@ const SpreadSheet = () => {
   }
 
   return (
-    <div>
-      <Flex align="center">
+    <Flex direction="column" gap="10px">
+      {/* <Flex align="center">
         <FileButton onChange={handleFileUpload} accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
           {(props) => <Button {...props}>Upload file</Button>}
         </FileButton>
@@ -271,16 +285,24 @@ const SpreadSheet = () => {
         }} variant="filled" aria-label="Download" onClick={downloadAsBlob}>
           <IconDownload style={{ width: '70%', height: '70%' }} stroke={1.5} />
         </ActionIcon>
-      </Flex>
+      </Flex> */}
 
-      {sheetNames.length > 0 && (
-        <Select
-          label="Sheet"
-          data={sheetNames}
-          value={selectedSheet}
-          onChange={handleSheetChange}
-        />
-      )}
+      <Flex align="center">
+        {sheetNames.length > 0 && (
+          <Select
+            label="Sheet"
+            data={sheetNames}
+            value={selectedSheet}
+            onChange={handleSheetChange}
+          />
+        )}
+
+        <ActionIcon disabled={data.length === 0} style={{
+          marginLeft: "auto"
+        }} variant="filled" aria-label="Download" onClick={downloadAsBlob}>
+          <IconDownload style={{ width: '70%', height: '70%' }} stroke={1.5} />
+        </ActionIcon>
+      </Flex>
 
       {data.length > 0 && (
         <HotTable
@@ -289,7 +311,7 @@ const SpreadSheet = () => {
           colHeaders={true}
           rowHeaders={true}
           width="100%"
-          height="calc(100vh - 180px)"
+          height="calc(100vh - 150px)"
           stretchH="all"
           mergeCells={mergeCells}  // Apply merge cells from the Excel sheet
           colWidths={columnWidths[selectedSheet] || []}
@@ -306,7 +328,7 @@ const SpreadSheet = () => {
           ref={(instance) => setHotInstance(instance?.hotInstance || null)}
         />
       )}
-    </div>
+    </Flex>
   );
 };
 

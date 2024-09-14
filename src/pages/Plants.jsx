@@ -10,12 +10,14 @@ const Plants = () => {
 
     const plantsList = [
         {
-            title: "C4",
-            description: "This is a C4 branch"
+            title: "G16",
+            description: "This is a G16 branch",
+            image: "G16.webp"
         },
         {
             title: "Ponneri",
-            description: "This is a Ponneri branch"
+            description: "This is a Ponneri branch",
+            image: "Ponneri.jpg"
         }
     ]
 

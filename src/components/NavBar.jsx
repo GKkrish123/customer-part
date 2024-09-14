@@ -1,18 +1,24 @@
 import React from 'react';
 import { Box, Group, Text, ThemeIcon, Menu, Divider, ScrollArea } from '@mantine/core';
-import { IconSettings, IconHome, IconLogout, IconTools, IconPaperclip } from '@tabler/icons-react';
+import { IconSettings, IconHome, IconLogout, IconTools } from '@tabler/icons-react';
 import { useAuth } from '../auth/authContext';
+import { useNavigate } from 'react-router-dom';
 
 const NavBar = () => {
-    const { logout, isAuthenticated } = useAuth(); // Check authentication state
+    const { logout, isAuthenticated } = useAuth();
+    const navigate = useNavigate();
     const navItems = [
-        { icon: IconHome, label: 'Plants' },
-        { icon: IconTools, label: 'Parts' },
+        { icon: IconHome, label: 'Plants', to: "/plants" },
+        { icon: IconTools, label: 'Parts', to: "/parts" },
     ];
 
     const handleLogout = () => {
         logout();
     };
+
+    const onNavItemClicked = (data) => {
+        navigate(data.to);
+    }
 
     return (
         <>
@@ -35,7 +41,7 @@ const NavBar = () => {
                         <Group key={item.label} mb="md" justify='center'>
                             <ThemeIcon variant="light" size="lg" style={{
                                 cursor: "pointer"
-                            }}>
+                            }} onClick={() => onNavItemClicked(item)}>
                                 <item.icon size={20} />
                             </ThemeIcon>
                             <Text>{item.label}</Text>
