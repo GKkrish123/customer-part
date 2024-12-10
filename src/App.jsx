@@ -12,9 +12,9 @@ import Parts from './pages/Parts';
 
 const App = () => {
   return (
-      <AuthProvider>
-    <ThemeProvider>
-        <Router>
+    <AuthProvider>
+      <Router>
+        <ThemeProvider>
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/plants" element={<Plants />} />
@@ -23,9 +23,9 @@ const App = () => {
 
             <Route path="*" element={<Navigate to="/plants" replace />} />
           </Routes>
-        </Router>
-    </ThemeProvider>
-      </AuthProvider>
+        </ThemeProvider>
+      </Router>
+    </AuthProvider>
   );
 };
 
